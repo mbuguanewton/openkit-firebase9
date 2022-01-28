@@ -29,7 +29,7 @@ function Home() {
                         href='https://github.com/newtfrank/fe-template-with-vitejs'
                         target='_blank'
                         rel='noreferer noopener'
-                        colorScheme='gray'
+                        colorScheme='blue'
                         icon={<FaGithub />}
                         variant='outline'
                         fontSize='1.2rem'
