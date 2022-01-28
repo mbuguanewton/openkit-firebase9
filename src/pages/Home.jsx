@@ -1,45 +1,43 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import {
+    Box,
+    Center,
+    Heading,
+    HStack,
+    IconButton,
+    Text,
+} from '@chakra-ui/react'
+import React from 'react'
+import { FaGithub } from 'react-icons/fa'
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
-  )
+function Home() {
+    return (
+        <Box p='50px 20px'>
+            <Center
+                width='50%'
+                mx='auto'
+                border='2px solid'
+                p='50px 20px'
+                borderRadius='10px'
+                spacing='8'
+                flexDirection='column'
+                borderColor='gray.300'>
+                <Heading mb='2rem'>Template</Heading>
+                <HStack spacing='5'>
+                    <Text>Copyright &copy; {new Date().getFullYear()}</Text>
+                    <IconButton
+                        as='a'
+                        href='https://github.com/newtfrank/fe-template-with-vitejs'
+                        target='_blank'
+                        rel='noreferer noopener'
+                        colorScheme='gray'
+                        icon={<FaGithub />}
+                        variant='outline'
+                        fontSize='1.2rem'
+                    />
+                </HStack>
+            </Center>
+        </Box>
+    )
 }
 
-export default App
+export default Home
