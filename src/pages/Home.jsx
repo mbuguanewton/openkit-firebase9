@@ -1,42 +1,59 @@
-import {
-    Box,
-    Center,
-    Heading,
-    HStack,
-    IconButton,
-    Text,
-} from '@chakra-ui/react'
-import React from 'react'
-import { FaGithub } from 'react-icons/fa'
+import { Box, Heading, VStack } from '@chakra-ui/react'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { onSnapshot, collection, query, orderBy } from 'firebase/firestore'
+import Layout from '../components/common/Layout'
+import AddTodos from '../components/todos/AddTodos'
+import TodosList from '../components/todos/TodosList'
+import { changeLoadingState, getTodos } from '../store/slices/TodosSlice'
+import db from '../utils/firebase.config'
 
 function Home() {
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(changeLoadingState(true))
+        const colRef = collection(db, 'todos')
+        const q = query(colRef, orderBy('created', 'desc'))
+        const unsub = onSnapshot(q, (snapshot) => {
+            const todos = snapshot.docs.map((doc) => {
+                const todo = { id: doc.id, ...doc.data() }
+                return todo
+            })
+            dispatch(getTodos(todos))
+            dispatch(changeLoadingState(false))
+        })
+
+        return () => unsub()
+    }, [])
     return (
-        <Box p='50px 20px'>
-            <Center
-                width='50%'
-                mx='auto'
-                border='2px solid'
-                p='50px 20px'
-                borderRadius='10px'
-                spacing='8'
-                flexDirection='column'
-                borderColor='gray.300'>
-                <Heading mb='2rem'>Template</Heading>
-                <HStack spacing='5'>
-                    <Text>Copyright &copy; {new Date().getFullYear()}</Text>
-                    <IconButton
-                        as='a'
-                        href='https://github.com/newtfrank/fe-template-with-vitejs'
-                        target='_blank'
-                        rel='noreferer noopener'
-                        colorScheme='blue'
-                        icon={<FaGithub />}
-                        variant='outline'
-                        fontSize='1.2rem'
-                    />
-                </HStack>
-            </Center>
-        </Box>
+        <Layout>
+            <Box width='100%' height='100vh' overflowY='auto'>
+                <VStack
+                    my='2rem'
+                    mx='auto'
+                    width={['90%', '90%', '60%', '50%', '40%']}
+                    alignItems='flex-start'
+                    position='relative'>
+                    <Box
+                        minHeight='10vh'
+                        width='100%'
+                        p='10px'
+                        bg='gray.800'
+                        top='0'
+                        left='0'
+                        zIndex='10'
+                        position='sticky'>
+                        <Heading fontSize='3xl' my='1rem'>
+                            Openkit todos
+                        </Heading>
+                        <AddTodos />
+                    </Box>
+
+                    <TodosList />
+                </VStack>
+            </Box>
+        </Layout>
     )
 }
 

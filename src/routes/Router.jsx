@@ -1,36 +1,20 @@
-import React, { useCallback, useState } from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { Box, Heading } from '@chakra-ui/react'
-import useEventListener from '../hooks/useEventListner'
+import React from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Box } from '@chakra-ui/react'
 import ScrollTop from '../components/common/ScrollTop'
-// import PrivateRoute from "./PrivateRoute";
 import Home from '../pages/Home'
 import NotFound from '../pages/404'
 
 function AppRouter() {
-    const [loading, setLoading] = useState(true)
-
-    const handleLoader = useCallback(() => {
-        setLoading(false)
-    }, [])
-
-    useEventListener('load', handleLoader)
-
     return (
         <Box>
-            {loading ? (
-                <Box p='30px 30px'>
-                    <Heading textAlign='center'>Loading</Heading>
-                </Box>
-            ) : (
-                <Router>
-                    <ScrollTop />
-                    <Switch>
-                        <Route exact path='/' component={Home} />
-                        <Route exact path='*' component={NotFound} />
-                    </Switch>
-                </Router>
-            )}
+            <Router>
+                <ScrollTop />
+                <Routes>
+                    <Route exact path='/' element={<Home />} />
+                    <Route exact path='*' component={<NotFound />} />
+                </Routes>
+            </Router>
         </Box>
     )
 }

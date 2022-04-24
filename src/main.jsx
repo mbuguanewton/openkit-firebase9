@@ -1,24 +1,22 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.scss'
-import { ChakraProvider, ColorModeScript, CSSReset } from '@chakra-ui/react'
+import { ChakraProvider, CSSReset } from '@chakra-ui/react'
+import { Provider } from 'react-redux'
 import theme from './utils/chakra.config'
-import '@fontsource/pt-sans/400.css'
-import '@fontsource/pt-sans/700.css'
-import '@fontsource/overpass-mono/400.css'
-import '@fontsource/overpass-mono/600.css'
-import '@fontsource/overpass-mono/700.css'
+import '@fontsource/poppins/400.css'
+import '@fontsource/poppins/600.css'
+import '@fontsource/poppins/800.css'
 import AppRouter from './routes/Router'
-import ContextProvider from './context'
+import store from './store'
 
 const App = (
     <React.StrictMode>
         <ChakraProvider theme={theme}>
-            <ColorModeScript initialColorMode={theme.config.initialColorMode} />
             <CSSReset />
-            <ContextProvider>
+            <Provider store={store}>
                 <AppRouter />
-            </ContextProvider>
+            </Provider>
         </ChakraProvider>
     </React.StrictMode>
 )
