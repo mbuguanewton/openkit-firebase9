@@ -96,4 +96,4 @@ And another one for all other commits.
 ./scripts/git.sh push
 ```
 
-> Happy coding :happy-face:
+> Happy coding :happy-face
