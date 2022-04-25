@@ -56,7 +56,7 @@ Add a .env file to the project folder.
 touch .env
 ```
 
-Add the firebase config properties as follows
+Add the firebase config properties to the .env file
 
 ```bash
 VITE_FIRE_API_KEY=''
