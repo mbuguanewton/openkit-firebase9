@@ -8,13 +8,5 @@ export default ({ mode }) => {
 
     return defineConfig({
         plugins: [react(), viteCommonjs()],
-        // server: {
-        //     proxy: {
-        //         '/api': process.env.VITE_API_URL,
-        //         configure: (proxy, options) => {
-        //             // proxy will be an instance of 'http-proxy'
-        //         },
-        //     },
-        // },
     })
 }

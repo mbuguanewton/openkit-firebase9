@@ -1,5 +1,7 @@
 import { Box } from '@chakra-ui/react'
 import React from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
+import ErrorHandler from './ErrorHandler'
 
 function Layout({ children }) {
     return (
@@ -9,7 +11,9 @@ function Layout({ children }) {
             overflow='hidden'
             bg='gray.800'
             color='gray.200'>
-            {children}
+            <ErrorBoundary FallbackComponent={ErrorHandler}>
+                {children}
+            </ErrorBoundary>
         </Box>
     )
 }
